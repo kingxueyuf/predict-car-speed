@@ -38,13 +38,13 @@ class AlexLSTM(nn.Module):
 #             print("conv reshape :", conv.size())
             convs.append(conv)
         convs = th.stack(convs, 0)
-        print("alex output shape : ",convs.size()) # ([20, 5, 68096]) (seq_len, batch, input_size)
-        print("lstm input shape : ",convs.size())
+#         print("alex output shape : ",convs.size()) # ([20, 5, 68096]) (seq_len, batch, input_size)
+#         print("lstm input shape : ",convs.size())
         lstm, _ = self.lstm(convs, state) # lstm input (seq_len, batch, input_size)
-        print("lstm output shape : ",lstm.size()) # torch.Size([20, 5, 420]) (seq_len, batch, hidden_size * num_directions)
-        print("fc input shape : ",lstm.size())
+#         print("lstm output shape : ",lstm.size()) # torch.Size([20, 5, 420]) (seq_len, batch, hidden_size * num_directions)
+#         print("fc input shape : ",lstm.size())
         logit = self.fc(lstm) # seq_len, batch, input_size ([20, 5, 1])
-        print("fc output shape : ",logit.size())
+#         print("fc output shape : ",logit.size())
         
         logit = logit.transpose(1,0).squeeze(2) # [batch, seq_len]
         return logit
@@ -101,9 +101,8 @@ for i in range(1000):
     y = V(th.from_numpy(y).float()).cuda()
     predict = model(x)
     loss = criterion(predict, y)
-
-print("loss : ", loss)
-print("---Predict---")
-print(predict)
-print("---Label---")
-print(y)
+    print("loss : ", loss)
+    print("---Predict---")
+    print(predict)
+    print("---Label---")
+    print(y)
