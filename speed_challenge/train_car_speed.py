@@ -1,15 +1,3 @@
-
-# coding: utf-8
-
-# In[ ]:
-
-
-
-# coding: utf-8
-
-# In[42]:
-
-
 import torch.nn as nn
 from torch.autograd import Variable as V
 import torch as th
@@ -69,15 +57,16 @@ class AlexLSTM(nn.Module):
         )
     
 net = AlexLSTM()
+net = net.cuda()
 # print(net)
 
-batch_size = 5
-time_stamp = 20
+batch_size = 1 #5
+time_stamp = 40  #20
 train_dataset = os.listdir("img/")
 total_img_num = len(train_dataset)
 iteration_per_epoch = int(total_img_num / (batch_size*time_stamp))
-lr = 0.0001
-criterion = nn.MSELoss(False)
+lr = 0.001 # 0.0001
+criterion = nn.MSELoss()
 
 def fetch_image_and_label(batch_size, time_stamp):
     numbers = []
@@ -110,8 +99,8 @@ for epoch in range(20):  # loop over the dataset multiple times
         x,y = fetch_image_and_label(batch_size, time_stamp)
 
         # wrap them in Variable
-        x = V(th.from_numpy(x).float())
-        y = V(th.from_numpy(y).float())
+        x = V(th.from_numpy(x).float()).cuda()
+        y = V(th.from_numpy(y).float()).cuda()
 
         optimizer = optim.Adam(net.parameters(), lr=lr)
         optimizer.zero_grad()# zero the parameter gradients
@@ -131,18 +120,19 @@ for epoch in range(20):  # loop over the dataset multiple times
         optimizer.step()
 
         # print statistics
-        print("loss shape : ",loss.data.size())
+        print("loss shape : ",loss.size())
+        print("loss.data shape : ",loss.data.size())
         running_loss += loss.data[0]
         if running_loss <= min_loss :
             min_loss = running_loss
+            print("Found new min_loss !!!!!!!!! : " , min_loss)
             print("Saving model ...")
-            th.save(net.state_dict(), 'save/%d_%s.p' % (i, epoch))
-        print('[epoch : %d, iteration : %5d] loss: %.3f' % (epoch + 1, i + 1, running_loss / 2000))
+            th.save(net.state_dict(), 'save1/%d_%s.p' % (i, epoch))
+        print('[epoch : %d, iteration : %d] loss: %.3f' % (epoch, i, running_loss))
         running_loss = 0.0
     print("Saving model ...")
-    th.save(net.state_dict(), 'save/epoch_%s.p' % (epoch))
+    th.save(net.state_dict(), 'save1/epoch_%s.p' % (epoch))
 
 print('Finished Training')
-
 
 
