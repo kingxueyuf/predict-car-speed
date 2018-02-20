@@ -62,7 +62,7 @@ net = net.cuda()
 
 batch_size = 1 #5
 time_stamp = 40  #20
-train_dataset = os.listdir("img/")
+train_dataset = os.listdir("../img/")
 total_img_num = len(train_dataset)
 iteration_per_epoch = int(total_img_num / (batch_size*time_stamp))
 lr = 0.001 # 0.0001
@@ -75,7 +75,7 @@ def fetch_image_and_label(batch_size, time_stamp):
         if a not in numbers:
             numbers.append(a)
     label = []
-    file_in = open('data/train.txt', 'r')
+    file_in = open('../data/train.txt', 'r')
     for line in file_in.readlines():
         label.append(float(line))
     
@@ -84,7 +84,7 @@ def fetch_image_and_label(batch_size, time_stamp):
     for i in range(batch_size):
         for j in range(time_stamp):
             img_name = numbers[i] + j
-            image_path = 'img/frame' + str(img_name) + ".jpg"
+            image_path = '../img/frame' + str(img_name) + ".jpg"
             img = cv2.imread(image_path)
             x[i,j] = img
             y[i,j] = label[numbers[i] + j]
@@ -127,11 +127,11 @@ for epoch in range(20):  # loop over the dataset multiple times
             min_loss = running_loss
             print("Found new min_loss !!!!!!!!! : " , min_loss)
             print("Saving model ...")
-            th.save(net.state_dict(), 'save1/%d_%s.p' % (i, epoch))
+            th.save(net.state_dict(), '../weight/%d_%s.p' % (i, epoch))
         print('[epoch : %d, iteration : %d] loss: %.3f' % (epoch, i, running_loss))
         running_loss = 0.0
     print("Saving model ...")
-    th.save(net.state_dict(), 'save1/epoch_%s.p' % (epoch))
+    th.save(net.state_dict(), '../weight/epoch_%s.p' % (epoch))
 
 print('Finished Training')
 
