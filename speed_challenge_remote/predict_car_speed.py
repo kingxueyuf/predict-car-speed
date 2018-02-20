@@ -94,11 +94,13 @@ total_img_num = len(train_dataset)
 
 criterion = nn.MSELoss()
 model = load_model()
-x, y = fetch_image_and_label(batch_size, time_stamp)
-x = V(th.from_numpy(x).float()).cuda()
-y = V(th.from_numpy(y).float()).cuda()
-predict = model(x)
-loss = criterion(predict, y)
+
+for i in range(1000):
+    x, y = fetch_image_and_label(batch_size, time_stamp)
+    x = V(th.from_numpy(x).float()).cuda()
+    y = V(th.from_numpy(y).float()).cuda()
+    predict = model(x)
+    loss = criterion(predict, y)
 
 print("loss : ", loss)
 print("---Predict---")
