@@ -83,7 +83,7 @@ def fetch_image_and_label(batch_size, time_stamp):
 def load_model(): 
     model_path = "../weight/epoch_19.p"
     m = AlexLSTM()
-    m.load_state_dict(model_path)
+    m.load_state_dict(th.load(model_path))
     m = m.cuda()
     return m
 
