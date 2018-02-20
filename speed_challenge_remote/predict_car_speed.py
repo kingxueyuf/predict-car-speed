@@ -102,10 +102,10 @@ for i in range(1000):
     predict = model(x)
     loss = criterion(predict, y)
     print("------------------------------------------")
-    print("loss : ", loss)
+    print("---loss---")
+    print(loss)
     print("---Predict---")
     print(predict)
     print("---Label---")
     print(y)
-    print("------------------------------------------")
         
