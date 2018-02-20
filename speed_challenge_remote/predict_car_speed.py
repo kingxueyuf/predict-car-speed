@@ -89,6 +89,9 @@ def load_model():
 
 batch_size = 1 #5
 time_stamp = 40  #20
+train_dataset = os.listdir("../img/")
+total_img_num = len(train_dataset)
+
 criterion = nn.MSELoss()
 model = load_model()
 x, label = fetch_image_and_label(batch_size, time_stamp)
