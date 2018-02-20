@@ -101,11 +101,11 @@ for i in range(1000):
     y = V(th.from_numpy(y).float()).cuda()
     predict = model(x)
     loss = criterion(predict, y)
-    print("------------------------------------------"
+    print("------------------------------------------")
     print("loss : ", loss)
     print("---Predict---")
     print(predict)
     print("---Label---")
     print(y)
-    print("------------------------------------------"
+    print("------------------------------------------")
         
