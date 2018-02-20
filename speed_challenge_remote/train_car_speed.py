@@ -60,8 +60,8 @@ net = AlexLSTM()
 net = net.cuda()
 # print(net)
 
-batch_size = 1 #5
-time_stamp = 40  #20
+batch_size = 5 #5
+time_stamp = 200  #20
 train_dataset = os.listdir("../img/")
 total_img_num = len(train_dataset)
 iteration_per_epoch = int(total_img_num / (batch_size*time_stamp))
@@ -127,11 +127,11 @@ for epoch in range(20):  # loop over the dataset multiple times
             min_loss = running_loss
             print("Found new min_loss !!!!!!!!! : " , min_loss)
             print("Saving model ...")
-            th.save(net.state_dict(), '../weight/%d_%s.p' % (i, epoch))
+            th.save(net.state_dict(), '../weight1/%d_%s.p' % (i, epoch))
         print('[epoch : %d, iteration : %d] loss: %.3f' % (epoch, i, running_loss))
         running_loss = 0.0
     print("Saving model ...")
-    th.save(net.state_dict(), '../weight/epoch_%s.p' % (epoch))
+    th.save(net.state_dict(), '../weight1/epoch_%s.p' % (epoch))
 
 print('Finished Training')
 
