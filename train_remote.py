@@ -11,8 +11,6 @@ from alexlstm import AlexLSTM
 from datasetutil import DatasetUtil
 from importlib import reload
 
-get_ipython().run_line_magic('load_ext', 'autoreload')
-get_ipython().run_line_magic('autoreload', '2')
 
 batch_size = 5
 time_stamp = 20
