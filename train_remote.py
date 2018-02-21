@@ -11,7 +11,6 @@ from alexlstm import AlexLSTM
 from datasetutil import DatasetUtil
 from importlib import reload
 
-
 batch_size = 5
 time_stamp = 20
 frame_offset_per_time_stamp = 10

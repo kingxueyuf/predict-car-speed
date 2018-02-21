@@ -8,7 +8,7 @@ class DatasetUtil():
     def fetch_image_and_label(self, batch_size, time_stamp, frame_offset_per_time_stamp, total_img_num):
         numbers = []
         while(len(numbers) != batch_size):
-            a = random.randint(0, total_img_num-time_stamp)
+            a = random.randint(0, total_img_num-time_stamp*frame_offset_per_time_stamp)
             if a not in numbers:
                 numbers.append(a)
         label = []
