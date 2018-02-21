@@ -26,6 +26,7 @@ def train():
     min_loss = 100
     for offset in range(frame_offset_per_time_stamp):  # offset should smaller than frame_offset_per_time_stamp
         running_loss = 0.0
+        epoch = offset
         for i in range(iteration_per_epoch):
             x,y = util.fetch_image_and_label(batch_size, time_stamp, frame_offset_per_time_stamp, total_img_num, offset +i*batch_size*time_stamp * frame_offset_per_time_stamp)
             
