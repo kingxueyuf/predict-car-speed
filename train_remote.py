@@ -21,7 +21,7 @@ iteration_per_epoch = int(total_img_num / (batch_size * time_stamp * frame_offse
 def train():
     net = AlexLSTM().cuda()
     util = DatasetUtil()
-    criterion = nn.MSELoss(False)
+    criterion = nn.MSELoss()
     lr = 0.001
     min_loss = 100
     for epoch in range(10):
@@ -36,7 +36,7 @@ def train():
                 
                 optimizer = optim.Adam(net.parameters(), lr=lr)
                 
-                for train_time in range(100):
+                for train_time in range(200):
                     optimizer.zero_grad()# zero the parameter gradients
                     # forward + backward + optimize
                     predict = net(x)
