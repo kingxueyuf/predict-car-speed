@@ -51,11 +51,11 @@ def train():
                 if running_loss <= min_loss :
                     min_loss = running_loss
                     print("--- Found smaller loss ---")
-                    th.save(net.state_dict(), 'weight/epoch%d_offset%d_iter%d.p' % (epoch,offset,i))
+                    th.save(net.state_dict(), 'weight/epoch%d_offset%d_iter%d_loss%d.p' % (epoch,offset,i,running_loss))
                 print('[epoch : %d, offset : %d, i : %d] loss: %.3f' % (epoch, offset, i, running_loss))
                 running_loss = 0.0
-            print("Saving model per offset...")
-            th.save(net.state_dict(), 'weight/epoch%d_offset%d.p' % (epoch,offset))
+        print("Saving model per epoch...")
+        th.save(net.state_dict(), 'weight/epoch%d.p' % (epoch))
     print('Finished Training')
 
 train()
