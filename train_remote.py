@@ -23,7 +23,7 @@ def train():
     util = DatasetUtil()
     criterion = nn.MSELoss()
     lr = 0.001
-    min_loss = 100
+    min_loss = 3
     for epoch in range(10):
         for offset in range(frame_offset_per_time_stamp):  # offset should smaller than frame_offset_per_time_stamp
             running_loss = 0.0
