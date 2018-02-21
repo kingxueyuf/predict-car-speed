@@ -16,7 +16,7 @@ time_stamp = 20
 frame_offset_per_time_stamp = 10
 train_dataset = os.listdir("img/")
 total_img_num = len(train_dataset)
-iteration_per_epoch = int(total_img_num / (batch_size*time_stamp))
+iteration_per_epoch = int(total_img_num / (batch_size * time_stamp * frame_offset_per_time_stamp))
 
 def train():
     net = AlexLSTM().cuda()
@@ -24,10 +24,10 @@ def train():
     criterion = nn.MSELoss(False)
     lr = 0.0001
     min_loss = 100
-    for epoch in range(20):  # loop over the dataset multiple times
+    for offset in range(frame_offset_per_time_stamp):  # offset should smaller than frame_offset_per_time_stamp
         running_loss = 0.0
         for i in range(iteration_per_epoch):
-            x,y = util.fetch_image_and_label(batch_size, time_stamp, frame_offset_per_time_stamp, total_img_num)
+            x,y = util.fetch_image_and_label(batch_size, time_stamp, frame_offset_per_time_stamp, total_img_num, offset +i*batch_size*time_stamp * frame_offset_per_time_stamp)
             
             # wrap them in Variable
             x = V(th.from_numpy(x).float()).cuda()

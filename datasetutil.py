@@ -5,12 +5,7 @@ import os
 
 class DatasetUtil():
     
-    def fetch_image_and_label(self, batch_size, time_stamp, frame_offset_per_time_stamp, total_img_num):
-        numbers = []
-        while(len(numbers) != batch_size):
-            a = random.randint(0, total_img_num-time_stamp*frame_offset_per_time_stamp)
-            if a not in numbers:
-                numbers.append(a)
+    def fetch_image_and_label(self, batch_size, time_stamp, frame_offset_per_time_stamp, total_img_num, offset):
         label = []
         file_in = open('data/train.txt', 'r')
         for line in file_in.readlines():
@@ -20,8 +15,8 @@ class DatasetUtil():
         y = np.zeros((batch_size, time_stamp))
         for i in range(batch_size):
             for j in range(time_stamp):
-                offset = j * frame_offset_per_time_stamp
-                index = numbers[i] + offset
+                time_stamp_offset = j * frame_offset_per_time_stamp
+                index = offset + i * time_stamp * frame_offset_per_time_stamp + time_stamp_offset
 
                 bgr_img = cv2.imread("img/frame" + str(index) + ".jpg")
 
