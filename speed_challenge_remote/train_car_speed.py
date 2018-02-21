@@ -61,7 +61,7 @@ net = net.cuda()
 # print(net)
 
 batch_size = 5 #5
-time_stamp = 200  #20
+time_stamp = 10  #20
 train_dataset = os.listdir("../img/")
 total_img_num = len(train_dataset)
 iteration_per_epoch = int(total_img_num / (batch_size*time_stamp))
@@ -86,6 +86,7 @@ def fetch_image_and_label(batch_size, time_stamp):
             img_name = numbers[i] + j
             image_path = '../img/frame' + str(img_name) + ".jpg"
             img = cv2.imread(image_path)
+            img = img[190:350, 100:520] # Crop 
             x[i,j] = img
             y[i,j] = label[numbers[i] + j]
     
