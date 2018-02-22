@@ -30,13 +30,17 @@ def train():
             # wrap them in Variable
             x = V(th.from_numpy(x).float()).cuda()
             y = V(th.from_numpy(y).float()).cuda()
+            
             optimizer = optim.Adam(net.parameters(), lr=lr)
             optimizer.zero_grad()# zero the parameter gradients
+            
             # forward + backward + optimize
             predict = net(x)
             loss = criterion(predict, y)
             loss.backward()
             optimizer.step()
+            
+            running_loss = 0
             running_loss += loss.data[0]
             
             print('epoch%d_iteration%d_loss%3d' % (epoch,iteration,running_loss))
