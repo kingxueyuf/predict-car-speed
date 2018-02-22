@@ -23,7 +23,7 @@ def train():
     util = DatasetUtil()
     criterion = nn.MSELoss()
     lr = 0.0001
-    min_loss = 5
+    min_loss = 9
     for epoch in range(7000):
         for iteration in range(iter_per_epoch):  # offset should smaller than frame_offset_per_time_stamp
             x,y = util.fetch_image_and_label(batch_size, time_stamp, image_num_per_time_stamp, video_length_in_seconds - time_stamp)
@@ -47,7 +47,8 @@ def train():
             if running_loss <= min_loss:
                 min_loss = running_loss
                 th.save(net.state_dict(), 'weight/epoch%d_iteration%d_loss%3d.p' % (epoch,iteration,min_loss))
-        th.save(net.state_dict(), 'weight/epoch%d.p' % (epoch))
+        if epoch % 20 == 0:
+            th.save(net.state_dict(), 'weight/epoch%d.p' % (epoch))
     print('Finished Training')
 
 train()
