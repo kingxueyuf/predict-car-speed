@@ -11,8 +11,8 @@ class DatasetUtil():
         for line in file_in.readlines():
             label.append(float(line))
 
-        x = np.zeros((batch_size, time_stamp, 160, 420, 3)) # (160, 420) (480, 640) 
-        y = np.zeros((batch_size, time_stamp))
+        x = np.zeros((batch_size, time_stamp * image_num_per_time_stamp, 160, 420, 3)) # (160, 420) (480, 640) 
+        y = np.zeros((batch_size, time_stamp * image_num_per_time_stamp))
         for i in range(batch_size):
             # For each batch
             start_second = random.randint(0,second_range)
