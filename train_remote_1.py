@@ -24,7 +24,7 @@ def train():
     criterion = nn.MSELoss()
     lr = 0.0001
     min_loss = 5
-    for epoch in range(400):
+    for epoch in range(7000):
         for iteration in range(iter_per_epoch):  # offset should smaller than frame_offset_per_time_stamp
             x,y = util.fetch_image_and_label(batch_size, time_stamp, image_num_per_time_stamp, video_length_in_seconds - time_stamp)
             # wrap them in Variable
