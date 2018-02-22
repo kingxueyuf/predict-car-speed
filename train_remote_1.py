@@ -13,7 +13,7 @@ from importlib import reload
 
 batch_size = 10
 time_stamp = 30
-image_num_per_time_stamp = 2
+image_num_per_time_stamp = 3
 video_length_in_seconds = 17 * 60
 train_dataset = os.listdir("img/")
 iter_per_epoch = int(video_length_in_seconds / (batch_size * time_stamp))
@@ -24,7 +24,7 @@ def train():
     criterion = nn.MSELoss()
     lr = 0.0001
     min_loss = 5
-    for epoch in range(200):
+    for epoch in range(400):
         for iteration in range(iter_per_epoch):  # offset should smaller than frame_offset_per_time_stamp
             x,y = util.fetch_image_and_label(batch_size, time_stamp, image_num_per_time_stamp, video_length_in_seconds - time_stamp)
             # wrap them in Variable
