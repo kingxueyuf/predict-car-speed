@@ -19,7 +19,7 @@ class DatasetUtil():
             batch_offset = 20 * start_second
             for j in range(time_stamp):
                 time_stamp_offset = 20 * j
-                arr = random.sample(range(0, 20), image_num_per_time_stamp)
+                arr = sorted(random.sample(range(0, 20), image_num_per_time_stamp))
                 for k in range(image_num_per_time_stamp):
                     index = batch_offset + time_stamp_offset + arr[k]
                     bgr_img = cv2.imread("img/frame" + str(index) + ".jpg")
