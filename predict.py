@@ -38,7 +38,7 @@ model = load_model()
 util = DatasetUtil()
 
 row_to_speed = {}
-
+start = 0
 while start <= (frames - frames_per_forward):
     x = util.fetch_to_predict_input(frames_per_forward, start)
     x = V(th.from_numpy(x).float(), volatile=True).cuda()
