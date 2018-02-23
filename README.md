@@ -26,12 +26,8 @@ We will evaluate your test.txt using mean squared error.
 
 ## Dataset Exploration
 
-In order to predict the speed, I will have to feed multiple images to the model.
-How many frames do I need? The video is shot at `20 fps`.
-If the frame was taken more granularly, I will have to skip frames in every few frames to give the fast-forward effect. But here I can use the frames as-is.
-So that means 10 frames is about half a second. This should be enough.
-
-Now let's look at the dataset.
+train.mp4 17:00 640*480
+train.txt 20400 lines label!
 
 ### Train Dataset
 
