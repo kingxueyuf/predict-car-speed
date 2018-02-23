@@ -2,7 +2,7 @@
 
 # Learning To Predict Vehicle Speed From A Video
 
-![highway](images/highway.png)
+![highway](images/highway.jpg)
 
 **This is a project report for the comma.ai programming challenge.**
 
@@ -41,7 +41,7 @@ Two types of scenes seem to appear:
 * **0:00 - 12:30**: highway (12 min 30 sec)
 * **12:31 - 17:00**: street (4 min 30 sec)
 
-![plot_train_speed](images/plot_train_speed.png)
+![plot_train_speed](images/plot_train_speed.jpg)
 
 The labels (speed), accordingly, have less-diverse and higher speeds in the highway in the first half and more diverse and slower speeds in the street.
 
