@@ -1,6 +1,6 @@
 # predict-car-speed
 
-# Deep Learning Model To Learn and predict Vehicle Speed From A Video
+# Learn and Predict Vehicle Speed From A Video
 
 ![highway](images/highway.jpg)
 
