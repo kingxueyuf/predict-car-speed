@@ -39,14 +39,14 @@ def write_to_file(row_to_speed):
     
 row_to_speed = {}
 count = 0
-max_row = 10
-max_repeat = 5
+max_row = 10700
+max_repeat = 2000
 for i in range(iter_per_epoch * 1000):
     x,offset_index_map = util.fetch_to_predict_input(batch_size, time_stamp, image_num_per_time_stamp, video_length_in_seconds - time_stamp - 1)
     x = V(th.from_numpy(x).float(), volatile=True).cuda()
     predict = model(x)
-    print("---Predict---")
-    print(predict)
+#     print("---Predict---")
+#     print(predict)
     predict = predict[0]
     for key, value in offset_index_map.items():
         speed = predict[key]
