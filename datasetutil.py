@@ -51,7 +51,6 @@ class DatasetUtil():
                     rgb_img = cv2.merge([r,g,b])     # switch it to rgb
 
                     x[i,j * image_num_per_time_stamp + k] = rgb_img[190:350, 100:520, :] # crop
-                    y[i,j * image_num_per_time_stamp + k] = label[index]
                     offset_index_map[j * image_num_per_time_stamp + k] = index
 
         x = x.transpose(0, 4, 1, 2, 3) # (batch_size, 3, time_stamp, 480, 640)
