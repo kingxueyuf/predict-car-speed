@@ -41,15 +41,12 @@ def write_to_file(row_to_speed):
             
 row_to_speed = {}
 count = 0
-max_row = 10
+max_row = 10797
 max_repeat = 5
 for i in range(iter_per_epoch * 1000):
     x,dic1 = util.fetch_to_predict_input(batch_size, frames_per_forward, frames - frames_per_forward)
     x = V(th.from_numpy(x).float(), volatile=True).cuda()
     predict = model(x) # batch_size, (20-1=19)
-    
-    print("0 = ", predict.size()[0])
-    print("1 = ", predict.size()[1])
     
     for i in range(predict.size()[0]):
         # No.i batch
