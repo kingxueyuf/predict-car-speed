@@ -31,9 +31,7 @@ util = DatasetUtil()
 
 def write_to_file(row_to_speed):
     with open('result.txt', 'a') as result:
-        keylist = row_to_speed.keys()
-        keylist.sort()
-        for key in keylist:
+        for key in sorted(row_to_speed.keys()):
             line = key + " " + row_to_speed[key]
             result.write(line+"\n")
     
