@@ -45,9 +45,9 @@ def train():
             print('epoch%d_iteration%d_loss%f' % (epoch,iteration,running_loss))
             if running_loss <= min_loss:
                 min_loss = running_loss
-                th.save(net.state_dict(), 'weight_2/epoch%d_iteration%d_loss%f.p' % (epoch,iteration,min_loss))
+                th.save(net.state_dict(), 'weight_3/epoch%d_iteration%d_loss%f.p' % (epoch,iteration,min_loss))
         if epoch % 2 == 0:
-            th.save(net.state_dict(), 'weight_2/epoch%d.p' % (epoch))
+            th.save(net.state_dict(), 'weight_3/epoch%d.p' % (epoch))
     print('Finished Training')
 
 train()
