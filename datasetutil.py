@@ -35,6 +35,7 @@ class DatasetUtil():
     
     def fetch_to_predict_input(self, batch_size, time_stamp, image_num_per_time_stamp, second_range):
         x = np.zeros((batch_size, time_stamp * image_num_per_time_stamp, 160, 420, 3)) # (160, 420) (480, 640) 
+        offset_index_map = {} #Key is 0,1,2...59, Value is 1233,1234,1235...1380
         for i in range(batch_size):
             # For each batch
             start_second = random.randint(0,second_range)
@@ -44,13 +45,14 @@ class DatasetUtil():
                 arr = sorted(random.sample(range(0, 20), image_num_per_time_stamp))
                 for k in range(image_num_per_time_stamp):
                     index = batch_offset + time_stamp_offset + arr[k]
-                    bgr_img = cv2.imread("img/frame" + str(index) + ".jpg")
+                    bgr_img = cv2.imread("img_test/frame" + str(index) + ".jpg")
 
                     b,g,r = cv2.split(bgr_img)       # get b,g,r
                     rgb_img = cv2.merge([r,g,b])     # switch it to rgb
 
                     x[i,j * image_num_per_time_stamp + k] = rgb_img[190:350, 100:520, :] # crop
                     y[i,j * image_num_per_time_stamp + k] = label[index]
+                    offset_index_map[j * image_num_per_time_stamp + k] = index
 
         x = x.transpose(0, 4, 1, 2, 3) # (batch_size, 3, time_stamp, 480, 640)
-        return x, y
+        return x, offset_index_map

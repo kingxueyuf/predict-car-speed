@@ -11,7 +11,7 @@ from alexlstm import AlexLSTM
 from datasetutil import DatasetUtil
 from importlib import reload
 
-batch_size = 6
+batch_size = 3
 time_stamp = 15
 image_num_per_time_stamp = 20
 video_length_in_seconds = 17 * 60

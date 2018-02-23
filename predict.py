@@ -29,25 +29,18 @@ criterion = nn.MSELoss()
 model = load_model()
 util = DatasetUtil()
 
-dict = {}
-for i in range(iter_per_epoch):
-    # Per 30s
-    batch_offset = i * time_stamp * 20
-    x = np.zeros((batch_size, time_stamp * image_num_per_time_stamp, 160, 420, 3)) # (160, 420) (480, 640) 
-    for j in range(10):
-        for k in range(time_stamp):
-            for l in range(image_num_per_time_stamp):
-                index = batch_offset + j*2 + l + k * 20
-                bgr_img = cv2.imread("img/frame" + str(index) + ".jpg")
-                
-                b,g,r = cv2.split(bgr_img) 
-                rgb_img = cv2.merge([r,g,b])
-                x[i,index] = rgb_img[190:350, 100:520, :]
-            
+row_to_speed = {}
+for i in range(iter_per_epoch * 1000):
+    x,offset_index_map = util.fetch_to_predict_input(batch_size, time_stamp, image_num_per_time_stamp, video_length_in_seconds - time_stamp)
     x = V(th.from_numpy(x).float()).cuda()
     predict = model(x)
-    # 30 * 2 * 1
-    
+    for key, value in predict.items():
+        speed = predict[key]
+        if value in row_to_speed:
+            row_to_speed[value] = (row_to_speed[value] + speed) / 2
+        else:
+            row_to_speed[value] = speed
+   
     print("---Predict---")
     print(predict)
         
