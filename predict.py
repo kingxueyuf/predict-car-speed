@@ -21,7 +21,7 @@ def load_model():
 batch_size = 1
 time_stamp = 30
 image_num_per_time_stamp = 2
-video_length_in_seconds = 17 * 60
+video_length_in_seconds = 9 * 60 
 train_dataset = os.listdir("img/")
 iter_per_epoch = int(video_length_in_seconds / (batch_size * time_stamp))
 
@@ -29,17 +29,25 @@ criterion = nn.MSELoss()
 model = load_model()
 util = DatasetUtil()
 
-for i in range(1000):
-    x,y = util.fetch_image_and_label(batch_size, time_stamp, image_num_per_time_stamp, video_length_in_seconds - time_stamp)
+dict = {}
+for i in range(iter_per_epoch):
+    # Per 30s
+    batch_offset = i * time_stamp * 20
+    x = np.zeros((batch_size, time_stamp * image_num_per_time_stamp, 160, 420, 3)) # (160, 420) (480, 640) 
+    for j in range(10):
+        for k in range(time_stamp):
+            for l in range(image_num_per_time_stamp):
+                index = batch_offset + j*2 + l + k * 20
+                bgr_img = cv2.imread("img/frame" + str(index) + ".jpg")
+                
+                b,g,r = cv2.split(bgr_img) 
+                rgb_img = cv2.merge([r,g,b])
+                x[i,index] = rgb_img[190:350, 100:520, :]
+            
     x = V(th.from_numpy(x).float()).cuda()
-    y = V(th.from_numpy(y).float()).cuda()
     predict = model(x)
-    loss = criterion(predict, y)
-#     print("------------------------------------------")
-#     print("---loss---")
-    print(loss)
-#     print("---Predict---")
-#     print(predict)
-#     print("---Label---")
-#     print(y)
+    # 30 * 2 * 1
+    
+    print("---Predict---")
+    print(predict)
         
