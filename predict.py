@@ -19,7 +19,7 @@ def load_model():
     return m
 
 def write_to_file(row_to_speed):
-    with open('result.txt', 'a') as result:
+    with open('result_1.txt', 'a') as result:
         for key in sorted(row_to_speed.keys()):
             arr = row_to_speed[key]
             _sum = 0
