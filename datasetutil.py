@@ -30,7 +30,7 @@ class DatasetUtil():
         x = x.transpose(0, 4, 1, 2, 3) # (batch_size, 3, time_stamp, 480, 640)
         return x, y
     
-    def fetch_to_predict_input(time_stamp, start)
+    def fetch_to_predict_input(time_stamp, start):
         x = np.zeros((1, time_stamp, 160, 420, 3)) # (160, 420) (480, 640) 
         for j in range(time_stamp):
             index = start + j
