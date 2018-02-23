@@ -12,14 +12,14 @@ from datasetutil import DatasetUtil
 import sys 
 
 def load_model(): 
-    model_path = "weight_2/epoch7_iteration24_loss  1.p"
+    model_path = "weight_3/epoch7_iteration24_loss  1.p"
     m = AlexLSTM()
     m.load_state_dict(th.load(model_path))
     m = m.cuda()
     return m
 
 def write_to_file(row_to_speed):
-    with open('result_1.txt', 'a') as result:
+    with open('result_2.txt', 'a') as result:
         for key in sorted(row_to_speed.keys()):
             arr = row_to_speed[key]
             _sum = 0
@@ -50,6 +50,6 @@ while start <= (frames - frames_per_forward):
             row_to_speed[index] = []
         row_to_speed[index].append(predict[0][j])
     print(len(row_to_speed))
-    start += 1
+    start += 5
 write_to_file(row_to_speed)
             
