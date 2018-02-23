@@ -9,7 +9,7 @@ import numpy as np
 import cv2 as cv2
 from alexlstm import AlexLSTM
 from datasetutil import DatasetUtil
-
+import sys 
 
 def load_model(): 
     model_path = "weight/epoch440.p"
@@ -29,8 +29,18 @@ criterion = nn.MSELoss()
 model = load_model()
 util = DatasetUtil()
 
-
+def write_to_file(row_to_speed):
+    with open('result.txt', 'a') as result:
+        for key in sorted(row_to_speed.iterkeys()):
+            line = key + " " + row_to_speed
+            result.write(line+"\n")
+    
+    
+    
 row_to_speed = {}
+count = 0
+max_row = 10
+max_repeat = 5
 for i in range(iter_per_epoch * 1000):
     x,offset_index_map = util.fetch_to_predict_input(batch_size, time_stamp, image_num_per_time_stamp, video_length_in_seconds - time_stamp - 1)
     x = V(th.from_numpy(x).float(), volatile=True).cuda()
@@ -45,4 +55,13 @@ for i in range(iter_per_epoch * 1000):
         else:
             row_to_speed[value] = speed
     print('row length', len(row_to_speed))
+    if len(row_to_speed) > max_row:
+        count += 1
+        print("repeat")
+        if count > max_repeat:
+            print("write to file")
+            write_to_file(row_to_speed)
+            sys.exit()
+            
+    
     
