@@ -21,7 +21,7 @@ def train():
     net = AlexLSTM().cuda()
     util = DatasetUtil()
     criterion = nn.MSELoss()
-    lr = 0.0001
+    lr = 0.00001
     min_loss = 9
     for epoch in range(1000):
         for iteration in range(iter_per_epoch):
@@ -45,9 +45,9 @@ def train():
             print('epoch%d_iteration%d_loss%f' % (epoch,iteration,running_loss))
             if running_loss <= min_loss:
                 min_loss = running_loss
-                th.save(net.state_dict(), 'weight_3/epoch%d_iteration%d_loss%f.p' % (epoch,iteration,min_loss))
+                th.save(net.state_dict(), 'weight_4/epoch%d_iteration%d_loss%f.p' % (epoch,iteration,min_loss))
         if epoch % 1 == 0:
-            th.save(net.state_dict(), 'weight_3/epoch%d.p' % (epoch))
+            th.save(net.state_dict(), 'weight_4/epoch%d.p' % (epoch))
     print('Finished Training')
 
 train()
