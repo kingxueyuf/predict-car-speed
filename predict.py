@@ -12,7 +12,7 @@ from datasetutil import DatasetUtil
 
 
 def load_model(): 
-    model_path = "weight/epoch80.p"
+    model_path = "weight/epoch440.p"
     m = AlexLSTM()
     m.load_state_dict(th.load(model_path))
     m = m.cuda()
