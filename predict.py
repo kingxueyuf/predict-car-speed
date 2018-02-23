@@ -31,10 +31,11 @@ util = DatasetUtil()
 
 row_to_speed = {}
 for i in range(iter_per_epoch * 1000):
-    x,offset_index_map = util.fetch_to_predict_input(batch_size, time_stamp, image_num_per_time_stamp, video_length_in_seconds - time_stamp)
+    x,offset_index_map = util.fetch_to_predict_input(batch_size, time_stamp, image_num_per_time_stamp, video_length_in_seconds - time_stamp - 1)
     x = V(th.from_numpy(x).float()).cuda()
     predict = model(x)
-    for key, value in predict.items():
+    
+    for key, value in offset_index_map.items():
         speed = predict[key]
         if value in row_to_speed:
             row_to_speed[value] = (row_to_speed[value] + speed) / 2
