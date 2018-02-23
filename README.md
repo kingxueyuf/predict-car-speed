@@ -8,22 +8,6 @@
 
 Basically, the goal is to predict the speed of a car from a video.
 
-```
-Welcome to the comma.ai 2017 Programming Challenge!
-
-Basically, your goal is to predict the speed of a car from a video.
-
-data/train.mp4 is a video of driving containing 20400 frames. Video is shot at 20 fps.
-data/train.txt contains the speed of the car at each frame, one speed on each line.
-
-data/test.mp4 is a different driving video containing 10798 frames.
-Video is shot at 20 fps.
-Your deliverable is test.txt
-
-We will evaluate your test.txt using mean squared error.
-<10 is good. <5 is better. <3 is heart.
-```
-
 ## Dataset Exploration
 
 train.mp4 17:00 640*480
@@ -38,33 +22,6 @@ Two types of scenes seem to appear:
 * **12:31 - 17:00**: street (4 min 30 sec)
 
 ![plot_train_speed](images/plot_train_speed.jpg)
-
-The labels (speed), accordingly, have less-diverse and higher speeds in the highway in the first half and more diverse and slower speeds in the street.
-
-
-### Test Dataset
-
-Test data is total of 9 minutes. It has three types of scenes:
-
-* **0:00 - 1:30**: street but the ones that do not appear on the training data (1 min 30 sec)
-* **1:30 - 4:30**: highway (3 min)
-* **4:30 - 9:00**: street that is similar to the one that appears in the training data. (4 min 30 sec)
-
-The test dataset definitely has more varied scenes including the ones that do not appear in the training dataset. For example, some do not have clear lanes. We'll have to be careful not to over-fit to the training dataset.
-
-![no_lane](./images/nolane.png)
-
-
-## Preprocessing
-
-
-### Sliding Window
-
-A dataset with 20400 frames is a small one to train on. So I want to use every possible samples.
-I used split ratio of 90%. So out of 20400 frames, 90% (18360 Frames) are used for training and 10% (2040 Frames) are used for the validation.
-
-I used sliding window with different shifting values to create several variations of datasets. They have same number of samples but those samples are slightly shifted in time. This was because I had ensemble approach in mind. I wanted to feed models slightly different dataset to produce varying opinions. Averaging them might give a better prediction.
-
 
 ## Models
 
