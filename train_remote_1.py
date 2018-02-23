@@ -11,12 +11,11 @@ from alexlstm import AlexLSTM
 from datasetutil import DatasetUtil
 from importlib import reload
 
-batch_size = 3
-time_stamp = 15
-image_num_per_time_stamp = 20
-video_length_in_seconds = 17 * 60
+batch_size = 100
+frames_per_forward = 20
+frames = 17 * 60 * 20
 train_dataset = os.listdir("img/")
-iter_per_epoch = int(video_length_in_seconds / (batch_size * time_stamp))
+iter_per_epoch = int(frames / (batch_size * frames_per_forward))
 
 def train():
     net = AlexLSTM().cuda()
@@ -25,8 +24,8 @@ def train():
     lr = 0.0001
     min_loss = 9
     for epoch in range(1000):
-        for iteration in range(iter_per_epoch):  # offset should smaller than frame_offset_per_time_stamp
-            x,y = util.fetch_image_and_label(batch_size, time_stamp, image_num_per_time_stamp, video_length_in_seconds - time_stamp)
+        for iteration in range(iter_per_epoch):
+            x,y = util.fetch_image_and_label(batch_size, frames_per_forward, frames - frames_per_forward)
             # wrap them in Variable
             x = V(th.from_numpy(x).float()).cuda()
             y = V(th.from_numpy(y).float()).cuda()
