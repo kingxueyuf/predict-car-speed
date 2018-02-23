@@ -17,11 +17,11 @@ class AlexLSTM(nn.Module):
         alexnet = models.alexnet(pretrained=True)
         self.conv = nn.Sequential(*list(alexnet.children())[:-1])
 
-        self.lstm = nn.LSTM(12288, h_size, dropout=0.15, num_layers=n_layers)
+        self.lstm = nn.LSTM(12288, h_size, dropout=0.15, num_layers=n_layers) # dropout = 0.3
         self.fc = nn.Sequential(
             nn.Linear(h_size, 64),
             nn.ReLU(),
-            nn.Dropout(0.15),
+            nn.Dropout(0.15), # dropout = 0.2
             nn.Linear(64, 1)
         )
 

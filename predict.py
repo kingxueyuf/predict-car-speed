@@ -12,7 +12,7 @@ from datasetutil import DatasetUtil
 import sys 
 
 def load_model(): 
-    model_path = "weight/epoch440.p"
+    model_path = "weight_2/epoch7_iteration24_loss  1.p"
     m = AlexLSTM()
     m.load_state_dict(th.load(model_path))
     m = m.cuda()
@@ -31,15 +31,18 @@ util = DatasetUtil()
 def write_to_file(row_to_speed):
     with open('result.txt', 'a') as result:
         for key in sorted(row_to_speed.keys()):
-            line = str(key) + " " + str(row_to_speed[key].data[0])
+            arr = row_to_speed[key]
+            _sum = 0
+            for i in range(len(arr)):
+                _sum += arr[i]
+            _sum = _sum / len(arr)
+            line = str(key) + " " + str(_sum)
             result.write(line+"\n")
-    
-    
-    
+            
 row_to_speed = {}
 count = 0
-max_row = 10500
-max_repeat = 1000
+max_row = 10
+max_repeat = 5
 for i in range(iter_per_epoch * 1000):
     x,dic1 = util.fetch_to_predict_input(batch_size, frames_per_forward, frames - frames_per_forward)
     x = V(th.from_numpy(x).float(), volatile=True).cuda()
@@ -55,13 +58,11 @@ for i in range(iter_per_epoch * 1000):
             row_to_speed[index].append(predict[i][j])
     
     print('row length', len(row_to_speed))
-    if len(row_to_speed) > max_row:
+    if len(row_to_speed) >= max_row:
         count += 1
         print("repeat")
-        if count > max_repeat:
+        if count >= max_repeat:
             print("write to file")
             write_to_file(row_to_speed)
             sys.exit()
             
-    
-    
