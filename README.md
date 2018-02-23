@@ -61,7 +61,7 @@ AlexLSTM (
 ```
 ## Result
 
-https://github.com/keon/speed/blob/master/predictions.txt
+https://github.com/kingxueyuf/predict-car-speed/blob/master/test.txt
 
 ## Future Work
 
