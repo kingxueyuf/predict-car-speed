@@ -49,6 +49,7 @@ while start <= (frames - frames_per_forward):
         if index not in row_to_speed.keys():
             row_to_speed[index] = []
         row_to_speed[index].append(predict[0][j])
+    print(len(row_to_speed))
     start += 1
 write_to_file(row_to_speed)
             
