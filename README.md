@@ -65,80 +65,13 @@ I used split ratio of 90%. So out of 20400 frames, 90% (18360 Frames) are used f
 
 I used sliding window with different shifting values to create several variations of datasets. They have same number of samples but those samples are slightly shifted in time. This was because I had ensemble approach in mind. I wanted to feed models slightly different dataset to produce varying opinions. Averaging them might give a better prediction.
 
-### Cropping & Resizing
-
-First I cropped out the unnecessary parts.
-The car and sky do not give much information about speed.
-So it would be reasonable to crop them out.
-
- Scene 1                   |  Scene 2                  |  Scene 3
-:-------------------------:|:-------------------------:|:-------------------------:
-![](./images/crop1.png)    | ![](./images/crop2.png)   | ![](./images/crop3.png)
-
-
-Next, I resized the image smaller for training. My computer gets sad when given a large image.
-The resized image has 200 pixel width and 66 pixel height.
-
- Scene 1                   |  Scene 2                  |  Scene 3
-:-------------------------:|:-------------------------:|:-------------------------:
-![](./images/resize1.png)  | ![](./images/resize2.png) | ![](./images/resize3.png)
-
-
-Lastly, the resized image is normalized to the range of [0, 1].
-
-
-### Data Augmentation
-
-As stated above, 20400 frames is not enough to derive the best performance of the model.
-To make it better, data augmentation is needed to maximize the number of examples.
-I used dropout, noise, brightness changes and etc to simulate the real-life-like noise effects.
-Thankfully, `imgaug` package made it really easy.
-Simple block of code below takes care of the work.
-
-```python
-sometimes = lambda aug: iaa.Sometimes(0.5, aug)
-aug = iaa.SomeOf(1,[
-        sometimes(iaa.OneOf([
-            iaa.Dropout((0.01, 0.1)),
-            iaa.CoarseDropout((0.03, 0.07),
-                              size_percent=(0.03, 0.15)),
-        ])),
-        sometimes(iaa.DirectedEdgeDetect(0.4)),
-        sometimes(iaa.AdditiveGaussianNoise(loc=0,
-                                            scale=(0.3, 0.7))),
-        sometimes(iaa.Sharpen(alpha=(0, 1.0), lightness=(0.75, 1.5))),
-        sometimes(iaa.Add((-7, 7)))])
-```
 
 ## Models
 
-I played with two models in this project. One uses 3D convolutional network while the other uses 2d convolutional network combined with LSTM. These models are chosen because I wanted to take time as an input as well as the images. These models seemed to work well according to some papers.
-
-### MiniC3d (3D ConvNet)
-
-![conv3d](./images/conv3d.png)
-
-The model described in [Learning Spatiotemporal Features with 3D Convolutional Networks](https://arxiv.org/abs/1412.0767) seems simple enough to start with.
-The problem is that I can't run the full model on my laptop, since it will take weeks on CPU and my GPU doesn't have the enough memory to process videos.
-So I made a mini version of the model.
-
-
-The result, however, was disappointing. Training loss kept going down but the validation loss was about 20 after 10 epochs. Maybe it is because I didn't tune the model. But I didn't have the time to work on this because my real focus on the other model.
-
-
-
 ### AlexLSTM (2D CNN + LSTM)
 
-What I really wanted to try out was this model. Because.. you know, `sequential data == LSTM`. Also, I had a little more experience with LSTM than CNN.
+![clstm](images/clstm.png)
 
-![clstm](./images/clstm.png)
-
-The model I used resembles the image above. I used one CNN to scan each image, creating embeddings.
-Those embeddings are then fed to LSTM.
-I used Alexnet's CNN layers pretrained on ImageNet as the CNN model and just added my own little LSTM on top of it.
-I also experimented with DenseNet but it took too much time so I didn't do anything about it after implementing it.
-
-My final model looked like this. I named it AlexLSTM.
 
 ```
 [!] Model Summary:
@@ -169,18 +102,6 @@ AlexLSTM (
   )
 )
 ```
-
-## Training
-
-I used SGD optimizer because it is known to be good at generalization. I used learning rate 0.00001 with momentum 0.9 since the CNN part was a pretrained model. I tested with Adam optimizer too. But while Adam converged faster, it seemed to have a hard time generalizing.
-
-Lastly, I ensemble-averaged three AlexLSTM models trained on time-shifted datasets.
-
-
-## Challenges
-
-I had a lot of limitation creating the model on my laptop. I faced frequent `out of memory` error. Each training also took forever so I only had a several experimentations which was not enough.
-
 ## Result
 
 https://github.com/keon/speed/blob/master/predictions.txt
