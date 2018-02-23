@@ -11,7 +11,7 @@ from alexlstm import AlexLSTM
 from datasetutil import DatasetUtil
 from importlib import reload
 
-batch_size = 2
+batch_size = 25
 frames_per_forward = 20
 frames = 17 * 60 * 20
 train_dataset = os.listdir("img/")
