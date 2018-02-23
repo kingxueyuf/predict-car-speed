@@ -48,12 +48,15 @@ AlexLSTM (
       (12): MaxPool2d (size=(3, 3), stride=(2, 2), dilation=(1, 1))
     )
   )
-  (lstm): LSTM(1280, 256, num_layers=2, dropout=0.2)
+  (lstm): LSTM(12288, 1600, num_layers=3, dropout=0.3)
   (fc): Sequential (
-    (0): Linear (256 -> 64)
+    (0): Linear (1600 -> 512)
     (1): ReLU ()
     (2): Dropout (p = 0.2)
-    (3): Linear (64 -> 1)
+    (3): Linear (512 -> 64)
+    (4): ReLU ()
+    (5): Dropout (p = 0.2)
+    (6): Linear (64 -> 1)
   )
 )
 ```
