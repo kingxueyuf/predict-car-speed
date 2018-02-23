@@ -29,11 +29,12 @@ criterion = nn.MSELoss()
 model = load_model()
 util = DatasetUtil()
 
-with torch.no_grad():
-    row_to_speed = {}
-    for i in range(iter_per_epoch * 1000):
-        x,offset_index_map = util.fetch_to_predict_input(batch_size, time_stamp, image_num_per_time_stamp, video_length_in_seconds - time_stamp - 1)
-        x = V(th.from_numpy(x).float()).cuda()
+
+row_to_speed = {}
+for i in range(iter_per_epoch * 1000):
+    x,offset_index_map = util.fetch_to_predict_input(batch_size, time_stamp, image_num_per_time_stamp, video_length_in_seconds - time_stamp - 1)
+    x = V(th.from_numpy(x).float()).cuda()
+    with th.no_grad():
         predict = model(x)
         print("---Predict---")
         print(predict)
