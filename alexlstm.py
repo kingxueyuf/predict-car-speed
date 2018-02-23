@@ -9,7 +9,7 @@ import numpy as np
 import cv2 as cv2
 
 class AlexLSTM(nn.Module):
-    def __init__(self, n_layers=3, h_size=1280):
+    def __init__(self, n_layers=3, h_size=1600):
         super(AlexLSTM, self).__init__()
         self.h_size = h_size
         self.n_layers = n_layers
