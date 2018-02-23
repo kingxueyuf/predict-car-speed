@@ -18,12 +18,11 @@ def load_model():
     m = m.cuda()
     return m
 
-batch_size = 1
-time_stamp = 30
-image_num_per_time_stamp = 2
-video_length_in_seconds = 9 * 60 
+batch_size = 25
+frames_per_forward = 20
+frames = 9 * 60 * 20 - 3
 train_dataset = os.listdir("img/")
-iter_per_epoch = int(video_length_in_seconds / (batch_size * time_stamp))
+iter_per_epoch = int(frames / (batch_size * frames_per_forward))
 
 criterion = nn.MSELoss()
 model = load_model()
@@ -42,18 +41,19 @@ count = 0
 max_row = 10500
 max_repeat = 1000
 for i in range(iter_per_epoch * 1000):
-    x,dic1 = util.fetch_to_predict_input(batch_size, time_stamp, image_num_per_time_stamp, video_length_in_seconds - time_stamp - 1)
+    x,dic1 = util.fetch_to_predict_input(batch_size, frames_per_forward, frames - frames_per_forward)
     x = V(th.from_numpy(x).float(), volatile=True).cuda()
-    predict = model(x)
-#     print("---Predict---")
-#     print(predict)
-    predict = predict[0]
-    for key, value in offset_index_map.items():
-        speed = predict[key]
-        if value in row_to_speed:
-            row_to_speed[value] = (row_to_speed[value] + speed) / 2
-        else:
-            row_to_speed[value] = speed
+    predict = model(x) # batch_size, (20-1=19)
+    
+    for i in predict.size()[0]:
+        # No.i batch
+        for j in predict.size()[1]:
+            # No.j logit
+            index = dic1[i][j+1]
+            if index not in row_to_speed.keys():
+                row_to_speed[index] = []
+            row_to_speed[index].append(predict[i][j])
+    
     print('row length', len(row_to_speed))
     if len(row_to_speed) > max_row:
         count += 1

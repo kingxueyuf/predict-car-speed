@@ -13,7 +13,7 @@ from importlib import reload
 
 batch_size = 25
 frames_per_forward = 20
-frames = 17 * 60 * 20
+frames = 17 * 60 * 20 - 1
 train_dataset = os.listdir("img/")
 iter_per_epoch = int(frames / (batch_size * frames_per_forward))
 
@@ -45,9 +45,9 @@ def train():
             print('epoch%d_iteration%d_loss%3d' % (epoch,iteration,running_loss))
             if running_loss <= min_loss:
                 min_loss = running_loss
-                th.save(net.state_dict(), 'weight_1/epoch%d_iteration%d_loss%3d.p' % (epoch,iteration,min_loss))
+                th.save(net.state_dict(), 'weight_2/epoch%d_iteration%d_loss%3d.p' % (epoch,iteration,min_loss))
         if epoch % 20 == 0:
-            th.save(net.state_dict(), 'weight_1/epoch%d.p' % (epoch))
+            th.save(net.state_dict(), 'weight_2/epoch%d.p' % (epoch))
     print('Finished Training')
 
 train()
