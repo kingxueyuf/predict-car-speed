@@ -34,7 +34,7 @@ def write_to_file(row_to_speed):
             arr = row_to_speed[key]
             _sum = 0
             for i in range(len(arr)):
-                _sum += arr[i]
+                _sum += arr[i].data[0]
             _sum = _sum / len(arr)
             line = str(key) + " " + str(_sum)
             result.write(line+"\n")
