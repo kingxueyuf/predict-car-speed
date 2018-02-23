@@ -48,9 +48,12 @@ for i in range(iter_per_epoch * 1000):
     x = V(th.from_numpy(x).float(), volatile=True).cuda()
     predict = model(x) # batch_size, (20-1=19)
     
-    for i in predict.size()[0]:
+    print("0 = ", predict.size()[0])
+    print("1 = ", predict.size()[1])
+    
+    for i in range(predict.size()[0]):
         # No.i batch
-        for j in predict.size()[1]:
+        for j in range(predict.size()[1]):
             # No.j logit
             index = dic1[i][j+1]
             if index not in row_to_speed.keys():
