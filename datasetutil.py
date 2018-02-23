@@ -32,7 +32,7 @@ class DatasetUtil():
     
     def fetch_to_predict_input(self, batch_size, time_stamp, frame_range):
         x = np.zeros((batch_size, time_stamp, 160, 420, 3)) # (160, 420) (480, 640) 
-        dic1 = np.zeros(batch_size, time_stamp)
+        dic1 = np.zeros((batch_size, time_stamp))
         for i in range(batch_size):
             # For each batch
             start_frame = random.randint(0,frame_range)
