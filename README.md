@@ -2,7 +2,7 @@
 
 # Learning To Predict Vehicle Speed From A Video
 
-![highway](./images/highway.png)
+![highway](readme_images/highway.png)
 
 **This is a project report for the comma.ai programming challenge.**
 
@@ -24,12 +24,6 @@ We will evaluate your test.txt using mean squared error.
 <10 is good. <5 is better. <3 is heart.
 ```
 
-When I first read the specification, the problem seemed simple enough that it would not require a complex model.
-I mean, regressing the edges of each frames should roughly give the speed.
-But I want this project to be ultimately useful for self-driving.
-And since I was studying the deep learning approaches in natural language processing,
-I wanted to use this opportunity to learn more about image/video processing using deep learning.
-
 ## Dataset Exploration
 
 In order to predict the speed, I will have to feed multiple images to the model.
@@ -47,7 +41,7 @@ Two types of scenes seem to appear:
 * **0:00 - 12:30**: highway (12 min 30 sec)
 * **12:31 - 17:00**: street (4 min 30 sec)
 
-![plot_train_speed](./images/plot_train_speed.png)
+![plot_train_speed](readme_images/plot_train_speed.png)
 
 The labels (speed), accordingly, have less-diverse and higher speeds in the highway in the first half and more diverse and slower speeds in the street.
 
