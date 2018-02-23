@@ -18,16 +18,6 @@ def load_model():
     m = m.cuda()
     return m
 
-batch_size = 25
-frames_per_forward = 20
-frames = 9 * 60 * 20 - 3
-train_dataset = os.listdir("img/")
-iter_per_epoch = int(frames / (batch_size * frames_per_forward))
-
-criterion = nn.MSELoss()
-model = load_model()
-util = DatasetUtil()
-
 def write_to_file(row_to_speed):
     with open('result.txt', 'a') as result:
         for key in sorted(row_to_speed.keys()):
@@ -38,31 +28,27 @@ def write_to_file(row_to_speed):
             _sum = _sum / len(arr)
             line = str(key) + " " + str(_sum)
             result.write(line+"\n")
-            
+
+batch_size = 1
+frames_per_forward = 20
+frames = 9 * 60 * 20 - 3
+
+criterion = nn.MSELoss()
+model = load_model()
+util = DatasetUtil()
+
 row_to_speed = {}
-count = 0
-max_row = 10797
-max_repeat = 5
-for i in range(iter_per_epoch * 1000):
-    x,dic1 = util.fetch_to_predict_input(batch_size, frames_per_forward, frames - frames_per_forward)
+
+while start <= (frames - frames_per_forward):
+    x = util.fetch_to_predict_input(frames_per_forward, start)
     x = V(th.from_numpy(x).float(), volatile=True).cuda()
     predict = model(x) # batch_size, (20-1=19)
-    
-    for i in range(predict.size()[0]):
-        # No.i batch
-        for j in range(predict.size()[1]):
-            # No.j logit
-            index = dic1[i][j+1]
-            if index not in row_to_speed.keys():
-                row_to_speed[index] = []
-            row_to_speed[index].append(predict[i][j])
-    
-    print('row length', len(row_to_speed))
-    if len(row_to_speed) >= max_row:
-        count += 1
-        print("repeat")
-        if count >= max_repeat:
-            print("write to file")
-            write_to_file(row_to_speed)
-            sys.exit()
+    for j in range(predict.size()[1]):
+        # No.j logit
+        index = start + j + 1
+        if index not in row_to_speed.keys():
+            row_to_speed[index] = []
+        row_to_speed[index].append(predict[0][j])
+    start += 1
+write_to_file(row_to_speed)
             
