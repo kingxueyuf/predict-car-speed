@@ -4,8 +4,6 @@
 
 ![highway](images/highway.jpg)
 
-**This is a project report for the comma.ai programming challenge.**
-
 Basically, the goal is to predict the speed of a car from a video.
 
 ## Dataset Exploration
