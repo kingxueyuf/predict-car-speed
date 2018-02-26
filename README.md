@@ -12,8 +12,7 @@ data/train.txt contains the speed of the car at each frame, one speed on each li
 data/test.mp4 is a different driving video containing 10798 frames. Video is shot at 20 fps. <br />
 Your deliverable is test.txt <br />
 
-### Train Dataset
-
+## Train Dataset
 The training dataset is about 17 minutes in total, which contains 20400 frames.
 Two types of scenes seem to appear:
 
@@ -24,7 +23,7 @@ Two types of scenes seem to appear:
 
 ## Models
 
-### AlexLSTM (2D CNN + LSTM)
+## AlexLSTM (2D CNN + LSTM)
 
 ![clstm](images/clstm.png)
 
