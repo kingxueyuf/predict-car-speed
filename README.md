@@ -21,13 +21,8 @@ Two types of scenes seem to appear:
 
 ![plot_train_speed](images/plot_train_speed.png)
 
-## Models
-
 ## AlexLSTM (2D CNN + LSTM)
-
 ![clstm](images/clstm.png)
-
-
 ```
 [!] Model Summary:
 AlexLSTM (
@@ -61,6 +56,5 @@ AlexLSTM (
 )
 ```
 ## Result
-
 https://github.com/kingxueyuf/predict-car-speed/blob/master/test.txt
 
