@@ -1,5 +1,3 @@
-## predict-car-speed
-
 ## Learn and Predict Vehicle Speed From A Video
 ![highway](images/highway.jpg)
 
