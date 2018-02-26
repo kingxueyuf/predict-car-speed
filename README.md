@@ -53,4 +53,3 @@ AlexLSTM (
 ```
 ## Result
 https://github.com/kingxueyuf/predict-car-speed/blob/master/test.txt
-
