@@ -13,12 +13,8 @@ data/test.mp4 is a different driving video containing 10798 frames. Video is sho
 Your deliverable is test.txt <br />
 
 ## Train Dataset
-The training dataset is about 17 minutes in total, which contains 20400 frames.
-Two types of scenes seem to appear:
-
 * **0:00 - 12:30**: highway (12 min 30 sec)
 * **12:31 - 17:00**: street (4 min 30 sec)
-
 ![plot_train_speed](images/plot_train_speed.png)
 
 ## AlexLSTM (2D CNN + LSTM)
