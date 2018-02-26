@@ -1,17 +1,18 @@
-# predict-car-speed
+## predict-car-speed
 
-# Learn and Predict Vehicle Speed From A Video
-
+## Learn and Predict Vehicle Speed From A Video
 ![highway](images/highway.jpg)
 
 ## What Is The Question
-Given a 17:00 minutes video (20 fps), there's one label per frame which tells the vehicle velocity<br />
+Given a 17:00 minutes video (20 fps), there's one label per frame which tells the vehicle velocity <br />
 Given a 9:00 minutes video (20 fps), inference the vehicle velocity for each frame
 
 ## Dataset Exploration
+data/train.mp4 is a video of driving containing 20400 frames. Video is shot at 20 fps. <br />
+data/train.txt contains the speed of the car at each frame, one speed on each line. <br />
 
-train.mp4 17:00 640*480
-train.txt 20400 lines label!
+data/test.mp4 is a different driving video containing 10798 frames. Video is shot at 20 fps. <br />
+Your deliverable is test.txt <br />
 
 ### Train Dataset
 
