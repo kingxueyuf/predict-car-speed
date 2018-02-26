@@ -4,7 +4,9 @@
 
 ![highway](images/highway.jpg)
 
-Basically, the goal is to predict the speed of a car from a video.
+## What Is The Question
+Given a 17:00 minutes video (20 fps), there's one label per frame which tells the vehicle velocity<br />
+Given a 9:00 minutes video (20 fps), inference the vehicle velocity for each frame
 
 ## Dataset Exploration
 
@@ -64,21 +66,3 @@ AlexLSTM (
 
 https://github.com/kingxueyuf/predict-car-speed/blob/master/test.txt
 
-## Future Work
-
-I believe there is a lot of room for improvements. I wish I could:
-
-- Tune the hyperparameters
-- Explore deeper and wider models
-- Use reinforcement learning
-- Also predict steering and test it on GTA or other racing games.
-- Explore more on preventing overfitting
-
-## References
-
-* [Deep Recurrent Q-Learning for Partially Observable MDPs](https://arxiv.org/abs/1507.06527)
-* [Learning Spatiotemporal Features with 3D Convolutional Networks](https://arxiv.org/abs/1412.0767)
-* [End to End Learning for Self-Driving Cars - Bojarski et al.](https://arxiv.org/abs/1604.07316)
-* [Large-scale Video Classification with Convolutional Neural Network - Karpathy et al.](https://static.googleusercontent.com/media/research.google.com/en//pubs/archive/42455.pdf)
-* [Playing Atari with Deep Reinforcement Learning](https://arxiv.org/abs/1312.5602)
-* [An augmentation based deep neural network approach to learn human driving behavior](https://chatbotslife.com/using-augmentation-to-mimic-human-driving-496b569760a9)
