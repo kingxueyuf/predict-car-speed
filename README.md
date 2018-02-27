@@ -51,5 +51,10 @@ AlexLSTM (
   )
 )
 ```
+
+(batch_size, 20, hh, ww, 3) -> AlexNet -> (batch_size, 20, hh', ww', filter_size) -> flatten -> (batch_size, 20, 12288) <br/>
+(batch_size, 20, 12288) -> LSTM -> (batch_size, 19, 1600)  <br/>
+(batch_size, 19, 1600) -> fc_layer_1 -> (batch_size, 19, 512) -> fc_layer_2 -> (batch_size, 19, 64) -> fc_layer_3 -> (batch_size, 19, 1) <br/>
+
 ## Result
 https://github.com/kingxueyuf/predict-car-speed/blob/master/test.txt
