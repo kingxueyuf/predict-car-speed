@@ -18,7 +18,7 @@ Your deliverable is test.txt <br />
 ![plot_train_speed](readme_images/plot_train_speed.png)
 
 ## AlexLSTM (2D CNN + LSTM)
-![clstm](images/clstm.png)
+![clstm](readme_images/clstm.png)
 ```
 [!] Model Summary:
 AlexLSTM (
