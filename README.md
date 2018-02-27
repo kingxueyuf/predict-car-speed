@@ -51,13 +51,20 @@ AlexLSTM (
   )
 )
 ```
-The dimension between each layer
+## The dimension between each layer
+
 ```
-(batch_size, 20, hh, ww, 3) -> AlexNet -> (batch_size, 20, hh', ww', filter_size) -> flatten -> (batch_size, 20, 12288)
+CNN Layer:
+-> (batch_size, 20, hh, ww, 3) -> AlexNet -> (batch_size, 20, hh', ww', filter_size) -> flatten -> (batch_size, 20, 12288)
 
-(batch_size, 20, 12288) -> LSTM -> (batch_size, 19, 1600)  # 20 images input per batch, get last 19 unit([1:]) output from LSTM
+LSTM Layer: # 20 images per batch, get last 19 (LSTM[1:]) LSTM cell output, as we can't predict speed for 1st image because there's no previous image for the 1st one.
+-> (batch_size, 20, 12288) -> LSTM -> (batch_size, 19, 1600)  
 
-(batch_size, 19, 1600) -> fc_layer_1 -> (batch_size, 19, 512) -> fc_layer_2 -> (batch_size, 19, 64) -> fc_layer_3 -> (batch_size, 19, 1) 
+Fully Connected Layer:
+-> (batch_size, 19, 1600) 
+-> fc_layer_1 -> (batch_size, 19, 512) 
+-> fc_layer_2 -> (batch_size, 19, 64) 
+-> fc_layer_3 -> (batch_size, 19, 1) 
 ```
 ## Result
 https://github.com/kingxueyuf/predict-car-speed/blob/master/test.txt
