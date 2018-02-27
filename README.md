@@ -1,5 +1,5 @@
 ## Learn and Predict Vehicle Speed From A Video
-![highway](images/highway.jpg)
+![highway](readme_images/highway.jpg)
 
 ## What Is The Question
 Given a 17:00 minutes video (20 fps), there's one label per frame which tells the vehicle velocity <br />
@@ -15,7 +15,7 @@ Your deliverable is test.txt <br />
 ## Train Dataset
 * **0:00 - 12:30**: highway (12 min 30 sec)
 * **12:31 - 17:00**: street (4 min 30 sec)
-![plot_train_speed](images/plot_train_speed.png)
+![plot_train_speed](readme_images/plot_train_speed.png)
 
 ## AlexLSTM (2D CNN + LSTM)
 ![clstm](images/clstm.png)
