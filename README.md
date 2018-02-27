@@ -1,7 +1,7 @@
 ## Learn and Predict Vehicle Speed From A Video
 ![highway](readme_images/highway.jpg)
 
-## What Is The Question
+## Problem Definition
 Given a 17:00 minutes video (20 fps), there's one label per frame which tells the vehicle velocity <br />
 Given a 9:00 minutes video (20 fps), inference the vehicle velocity for each frame
 
@@ -52,7 +52,7 @@ AlexLSTM (
 )
 ```
 
-## The dimension between each layer
+## The Dimension Between Each Layer
 ```
 CNN Layer:
 
