@@ -55,9 +55,12 @@ AlexLSTM (
 
 ```
 CNN Layer:
--> (batch_size, 20, hh, ww, 3) -> AlexNet -> (batch_size, 20, hh', ww', filter_size) -> flatten -> (batch_size, 20, 12288)
+-> (batch_size, 20, hh, ww, 3) 
+-> AlexNet -> (batch_size, 20, hh', ww', filter_size) 
+-> flatten -> (batch_size, 20, 12288)
 
-LSTM Layer: # 20 images per batch, get last 19 (LSTM[1:]) LSTM cell output, as we can't predict speed for 1st image because there's no previous image for the 1st one.
+LSTM Layer: 
+# 20 images per batch, get last 19 (LSTM[1:]) LSTM cell output, as we can't predict speed for the 1st image because lack of context
 -> (batch_size, 20, 12288) -> LSTM -> (batch_size, 19, 1600)  
 
 Fully Connected Layer:
